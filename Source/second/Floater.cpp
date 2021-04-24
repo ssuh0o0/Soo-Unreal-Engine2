@@ -27,6 +27,21 @@ void AFloater::BeginPlay()
 	if (bInitializeFloaterLocation){
 	SetActorLocation(InitialLocation);
 	}
+	FHitResult HitResult;
+
+	//AddActorLocalOffset 액터를 기준으로 x,y,z 축으로 이동하게 함.
+	FVector LocalOffset = FVector(20.0f,0.0f,0.0f);
+	AddActorLocalOffset(InitialDirection,true,&HitResult);
+
+	//AddActorWorldOffset 월드를 기준으로 x,y,z 축으로 이동하게 함.
+	FVector WorldOffset = FVector(20.0f,0.0f,0.0f);
+	AddActorWorldOffset(InitialDirection,true,&HitResult);
+
+	FRotator Rotation = FRotator(0.0f,0.0f,0.0f);
+	//AddActorLocalRotation 액터를 기준으로 돌아가게 함.
+	AddActorLocalRotation(Rotation);
+	//AddActorWorldRotation 월드를 기준으로 돌아가게 함.
+	AddActorWorldRotation(Rotation);
 
 }
 
