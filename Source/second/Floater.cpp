@@ -9,7 +9,7 @@ AFloater::AFloater()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("CustomStatic<Mesh"));
+	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("CustomStaticMesh"));
 
 	InitialLocation = FVector(0.0f);
 	PlacedLocation = FVector(0.0f);
