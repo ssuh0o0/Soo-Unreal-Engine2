@@ -11,14 +11,23 @@ AFloater::AFloater()
 
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("CustomStatic<Mesh"));
 
+	InitialLocation = FVector(0.0f);
+	PlacedLocation = FVector(0.0f);
+	WorldOrigin = FVector(0.0f, 0.0f, 0.0f);
+
 }
 
 // Called when the game starts or when spawned
 void AFloater::BeginPlay()
 {
 	Super::BeginPlay();
+
+	PlacedLocation = GetActorLocation();
 	
+	if (bInitializeFloaterLocation){
 	SetActorLocation(InitialLocation);
+	}
+
 }
 
 // Called every frame
@@ -26,5 +35,10 @@ void AFloater::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	if (bShouldFloat){
+
+		FHitResult HitResult;
+		AddActorLocalOffset(InitialLocation,false,&HitResult);
+	}
 }
 

@@ -21,6 +21,21 @@ public:
 	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category = "Floater Variables")
 	FVector InitialLocation = FVector(0.0f, 0.0f, 0.0f);
 
+	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category = "Floater Variables")
+	FVector PlacedLocation;
+
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Floater Variables")
+	FVector WorldOrigin;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Floater Variables")
+	FVector InitialDirection;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Floater Variables")
+	bool bShouldFloat;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Floater Variables")
+	bool bInitializeFloaterLocation;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
