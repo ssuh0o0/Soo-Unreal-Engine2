@@ -38,7 +38,10 @@ void AFloater::Tick(float DeltaTime)
 	if (bShouldFloat){
 
 		FHitResult HitResult;
-		AddActorLocalOffset(InitialLocation,false,&HitResult);
+		AddActorLocalOffset(InitialDirection,true,&HitResult);
+
+		FVector HitLocation = HitResult.Location;
+		UE_LOG(LogTemp, Warning, TEXT("Hit Location X = %f , Y = %f, Z = %f "),HitLocation.X,HitLocation.Y,HitLocation.Z);
 	}
 }
 
