@@ -36,6 +36,12 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Floater Variables")
 	bool bInitializeFloaterLocation;
 
+	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category = "Floater Variables")
+	FVector InitialForce;
+
+	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category = "Floater Variables")
+	FVector InitialTorque;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

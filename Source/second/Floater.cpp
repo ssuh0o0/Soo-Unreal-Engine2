@@ -15,6 +15,14 @@ AFloater::AFloater()
 	PlacedLocation = FVector(0.0f);
 	WorldOrigin = FVector(0.0f, 0.0f, 0.0f);
 
+	InitialDirection = FVector(0.0f, 0.0f, 0.0f);
+
+	bInitializeFloaterLocation = false;
+	bShouldFloat = false;
+
+	InitialForce = FVector(20000.f,0.0f,0.0f);
+	InitialTorque = FVector(20000.f,0.0f,0.0f);
+
 }
 
 // Called when the game starts or when spawned
@@ -42,6 +50,9 @@ void AFloater::BeginPlay()
 	AddActorLocalRotation(Rotation);
 	//AddActorWorldRotation 월드를 기준으로 돌아가게 함.
 	AddActorWorldRotation(Rotation);
+
+	StaticMesh-> AddForce(InitialForce);
+	StaticMesh-> AddTorque(InitialTorque);
 
 }
 
