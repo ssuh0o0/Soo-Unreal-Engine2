@@ -30,6 +30,17 @@ void AFloater::BeginPlay()
 {
 	Super::BeginPlay();
 
+	//float InitialX = FMath::FRand();
+	float InitialX = FMath::FRandRange(-500.f,500.f);
+	float InitialY = FMath::FRandRange(-500.f,500.f);
+	float InitialZ = FMath::FRandRange(0.f,500.f);
+
+	InitialLocation.X = InitialX;
+	InitialLocation.Y = InitialY;
+	InitialLocation.Z = InitialZ;
+
+	//InitialLocation *= 500.0f;
+
 	PlacedLocation = GetActorLocation();
 	
 	if (bInitializeFloaterLocation){
@@ -37,22 +48,22 @@ void AFloater::BeginPlay()
 	}
 	FHitResult HitResult;
 
-	//AddActorLocalOffset 액터를 기준으로 x,y,z 축으로 이동하게 함.
-	FVector LocalOffset = FVector(20.0f,0.0f,0.0f);
-	AddActorLocalOffset(InitialDirection,true,&HitResult);
+	//*** AddActorLocalOffset 액터를 기준으로 x,y,z 축으로 이동하게 함. ***
+	//FVector LocalOffset = FVector(20.0f,0.0f,0.0f);
+	//AddActorLocalOffset(InitialDirection,true,&HitResult);
 
-	//AddActorWorldOffset 월드를 기준으로 x,y,z 축으로 이동하게 함.
-	FVector WorldOffset = FVector(20.0f,0.0f,0.0f);
-	AddActorWorldOffset(InitialDirection,true,&HitResult);
+	//*** AddActorWorldOffset 월드를 기준으로 x,y,z 축으로 이동하게 함. ***
+	//FVector WorldOffset = FVector(20.0f,0.0f,0.0f);
+	//AddActorWorldOffset(InitialDirection,true,&HitResult);
 
-	FRotator Rotation = FRotator(0.0f,0.0f,0.0f);
-	//AddActorLocalRotation 액터를 기준으로 돌아가게 함.
-	AddActorLocalRotation(Rotation);
-	//AddActorWorldRotation 월드를 기준으로 돌아가게 함.
-	AddActorWorldRotation(Rotation);
+	//FRotator Rotation = FRotator(0.0f,0.0f,0.0f);
+	//*** AddActorLocalRotation 액터를 기준으로 돌아가게 함. ***
+	//AddActorLocalRotation(Rotation);
+	//*** AddActorWorldRotation 월드를 기준으로 돌아가게 함. ***
+	//AddActorWorldRotation(Rotation);
 
-	StaticMesh-> AddForce(InitialForce);
-	StaticMesh-> AddTorque(InitialTorque);
+	//StaticMesh-> AddForce(InitialForce);
+	//StaticMesh-> AddTorque(InitialTorque);
 
 }
 
