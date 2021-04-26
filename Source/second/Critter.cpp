@@ -2,8 +2,6 @@
 
 
 #include "Critter.h"
-#include "Components/StaticMeshComponent.h"
-
 
 // Sets default values
 ACritter::ACritter()
@@ -16,7 +14,13 @@ ACritter::ACritter()
    	MeshComponent-> SetupAttachment(GetRootComponent());
 
    	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
+	Camera -> SetupAttachment(GetRootComponent());
+	Camera -> SetRelativeLocation(FVector(-300.f,0.f,300.f));
+	Camera -> SetRelativeRotation(FRotator(-45.f,0.f,0.f));
 
+	AutoPossessPlayer = EAutoReceiveInput::Player0;
+	CurrentVelocity = FVector(0.f);
+	MaxSpeed = 100.f;
 }
 
 // Called when the game starts or when spawned
@@ -31,6 +35,8 @@ void ACritter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	FVector NewLocation = GetActorLocation() + (CurrentVelocity * DeltaTime);
+	SetActorLocation(NewLocation);
 }
 
 // Called to bind functionality to input
@@ -38,5 +44,17 @@ void ACritter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	PlayerInputComponent->BindAxis(TEXT("MoveForward"),this, &ACritter::MoveForward);
+	PlayerInputComponent->BindAxis(TEXT("MoveRight"),this, &ACritter::MoveRight);
 }
+
+void ACritter::MoveForward(float value){
+	CurrentVelocity.X = FMath::Clamp(value,-1.f,1.f) * MaxSpeed;
+}
+
+void ACritter::MoveRight(float value){
+	CurrentVelocity.Y = FMath::Clamp(value,-1.f,1.f) * MaxSpeed;
+}
+
+
 
