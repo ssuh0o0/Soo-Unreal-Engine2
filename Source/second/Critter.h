@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "Camera/CameraComponent.h"
 #include "Critter.generated.h"
+
 
 UCLASS()
 class SECOND_API ACritter : public APawn
@@ -25,5 +27,12 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	UPROPERTY(EditAnywhere)
+   	class UStaticMeshComponent* MeshComponent;
+
+   	//카메라 따라다니게 하기
+   	UPROPERTY(EditAnywhere)
+   	class UCameraComponent* Camera;
 
 };
