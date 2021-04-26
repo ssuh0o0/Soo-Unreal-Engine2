@@ -23,6 +23,12 @@ AFloater::AFloater()
 	InitialForce = FVector(20000.f,0.0f,0.0f);
 	InitialTorque = FVector(20000.f,0.0f,0.0f);
 
+	RunningTime = 0.0f;
+
+	A = 0.f;
+	B = 0.f;
+	C = 0.f;
+	D = 0.f;
 }
 
 // Called when the game starts or when spawned
@@ -47,7 +53,7 @@ void AFloater::BeginPlay()
 	SetActorLocation(InitialLocation);
 	}
 	FHitResult HitResult;
-
+	BaseZLocation = PlacedLocation.Z;
 	//*** AddActorLocalOffset 액터를 기준으로 x,y,z 축으로 이동하게 함. ***
 	//FVector LocalOffset = FVector(20.0f,0.0f,0.0f);
 	//AddActorLocalOffset(InitialDirection,true,&HitResult);
@@ -74,11 +80,17 @@ void AFloater::Tick(float DeltaTime)
 
 	if (bShouldFloat){
 
-		FHitResult HitResult;
-		AddActorLocalOffset(InitialDirection,true,&HitResult);
+		// FHitResult HitResult;
+		// AddActorLocalOffset(InitialDirection,true,&HitResult);
+		// FVector HitLocation = HitResult.Location;
+		// UE_LOG(LogTemp, Warning, TEXT("Hit Location X = %f , Y = %f, Z = %f "),HitLocation.X,HitLocation.Y,HitLocation.Z);
+	
+		//sin, cos 이용해서 진동만들기
+		FVector NewLocation = GetActorLocation();
+		NewLocation.Z = BaseZLocation + A *FMath::Sin(B * RunningTime - C) + D;  //Period = 2 * PI / ABS(B)
+		SetActorLocation(NewLocation);
+		RunningTime += DeltaTime;
 
-		FVector HitLocation = HitResult.Location;
-		UE_LOG(LogTemp, Warning, TEXT("Hit Location X = %f , Y = %f, Z = %f "),HitLocation.X,HitLocation.Y,HitLocation.Z);
 	}
 }
 
