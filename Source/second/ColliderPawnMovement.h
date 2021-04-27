@@ -13,5 +13,6 @@ UCLASS()
 class SECOND_API UColliderPawnMovement : public UPawnMovementComponent
 {
 	GENERATED_BODY()
-	
+public:
+		
 };
