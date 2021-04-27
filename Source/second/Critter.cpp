@@ -27,7 +27,7 @@ ACritter::ACritter()
 void ACritter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	 
 }
 
 // Called every frame
