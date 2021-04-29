@@ -14,5 +14,5 @@ class SECOND_API UColliderPawnMovement : public UPawnMovementComponent
 {
 	GENERATED_BODY()
 public:
-		
+	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 };

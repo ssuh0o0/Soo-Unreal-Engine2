@@ -60,8 +60,8 @@ void ACollider::Tick(float DeltaTime)
 }
 
 // Called to bind functionality to input
-void ACollider::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
+void ACollider::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent){
+	
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	PlayerInputComponent->BindAxis(TEXT("MoveForward"),this, &ACollider::MoveForward);
 	PlayerInputComponent->BindAxis(TEXT("MoveRight"),this, &ACollider::MoveRight);
@@ -69,6 +69,7 @@ void ACollider::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 }
 
 void ACollider::MoveForward(float value){
+
 	FVector Forward = GetActorForwardVector();
 	//AddMovementInput(value * Forward);
 	if (OurMovementComponent)
@@ -78,6 +79,15 @@ void ACollider::MoveForward(float value){
 }
 
 void ACollider::MoveRight(float value){
+	
 	FVector Right = GetActorRightVector();
-	AddMovementInput(value * Right);
+	//AddMovementInput(value * Right);
+	if (OurMovementComponent)
+	{
+		OurMovementComponent->AddInputVector(value * Right);
+	}
+}
+
+UPawnMovementComponent* ACollider::GetMovementComponent() const {
+	return OurMovementComponent;
 }
