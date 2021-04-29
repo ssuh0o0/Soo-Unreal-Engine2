@@ -10,7 +10,7 @@ ACritter::ACritter()
 	PrimaryActorTick.bCanEverTick = true;
 
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
-   	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComponent"));
+   	MeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("MeshComponent"));
    	MeshComponent-> SetupAttachment(GetRootComponent());
 
    	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));

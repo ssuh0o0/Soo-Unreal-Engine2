@@ -29,7 +29,7 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	UPROPERTY(EditAnywhere)
-   	class UStaticMeshComponent* MeshComponent;
+   	class USkeletalMeshComponent* MeshComponent;
 
    	//카메라 따라다니게 하기
    	UPROPERTY(EditAnywhere)
