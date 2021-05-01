@@ -23,6 +23,12 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = camera, meta=(AllowPrivateAccess="true"))
 	class UCameraComponent* FollowCamera;
 
+	/** Base turn rates to scale turning fumctions for the camera */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = camera)
+	float BaseTurnRate;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = camera)
+	float BaseLookRate;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -33,5 +39,13 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	/** Called for forwards/backwards input */
+	void MoveForward(float value);
+
+	/** Called for left/right input */
+	void MoveRight(float value);
+
+
 
 };

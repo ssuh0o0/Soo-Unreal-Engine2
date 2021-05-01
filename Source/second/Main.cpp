@@ -22,6 +22,9 @@ AMain::AMain()
 	FollowCamera -> SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	FollowCamera -> bUsePawnControlRotation = false; // 카메라는 Rotation에 구애를 받으면 안됨.
 
+	//Set our turn rates for input
+	BaseTurnRate = 65.f;
+	BaseLookRate = 65.f;
 }
 
 // Called when the game starts or when spawned
@@ -45,3 +48,22 @@ void AMain::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 }
 
+void AMain::MoveForward(float value){
+
+	FVector Forward = GetActorForwardVector();
+	//AddMovementInput(value * Forward);
+	if (OurMovementComponent)
+	{
+		OurMovementComponent->AddInputVector(value * Forward);
+	}
+}
+
+void AMain::MoveRight(float value){
+	
+	FVector Right = GetActorRightVector();
+	//AddMovementInput(value * Right);
+	if (OurMovementComponent)
+	{
+		OurMovementComponent->AddInputVector(value * Right);
+	}
+}
