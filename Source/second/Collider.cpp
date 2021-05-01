@@ -43,6 +43,8 @@ ACollider::ACollider()
 	OurMovementComponent = CreateDefaultSubobject<UColliderPawnMovement>(TEXT("OurMovementComponent"));
 	OurMovementComponent -> UpdatedComponent = RootComponent; 
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
+
+	CameraInput = FVector2D(0.f,0.f);
 }
 
 // Called when the game starts or when spawned
@@ -57,6 +59,15 @@ void ACollider::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	FRotator NewRotation = GetActorRotation();
+	NewRotation.Yaw += CameraInput.X;
+	SetActorRotation(NewRotation);
+
+	FRotator NewSpringArmRotation = SpringArm -> GetComponentRotation();
+	//pitch가 -15.f 보다 높게 올라가면 별로 안좋음 -> 근데 해봤더니 -15.f로 하면 하늘이 안보임. 그래서 0.f 로 올려줌
+	NewSpringArmRotation.Pitch = FMath::Clamp(NewSpringArmRotation.Pitch += CameraInput.Y,-80.f,-0.f);
+
+	SpringArm -> SetWorldRotation(NewSpringArmRotation);
 }
 
 // Called to bind functionality to input
@@ -66,6 +77,8 @@ void ACollider::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAxis(TEXT("MoveForward"),this, &ACollider::MoveForward);
 	PlayerInputComponent->BindAxis(TEXT("MoveRight"),this, &ACollider::MoveRight);
 
+	PlayerInputComponent->BindAxis(TEXT("CameraPitch"),this, &ACollider::CameraPitch);
+	PlayerInputComponent->BindAxis(TEXT("CameraYaw"),this, &ACollider::CameraYaw);
 }
 
 void ACollider::MoveForward(float value){
@@ -86,6 +99,14 @@ void ACollider::MoveRight(float value){
 	{
 		OurMovementComponent->AddInputVector(value * Right);
 	}
+}
+
+void ACollider::CameraPitch(float AxisValue){
+	CameraInput.Y = AxisValue;
+}
+
+void ACollider::CameraYaw(float AxisValue){
+	CameraInput.X = AxisValue;
 }
 
 UPawnMovementComponent* ACollider::GetMovementComponent() const {
