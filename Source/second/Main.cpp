@@ -5,6 +5,8 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Engine/World.h"
+#include "Components/CapsuleComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
 AMain::AMain()
@@ -18,6 +20,9 @@ AMain::AMain()
 	CameraBoom -> TargetArmLength = 600.f; //Camera follows at this distance
 	CameraBoom -> bUsePawnControlRotation = true; //Rotate arm based on controller
 
+	// 충돌 캡슐을 위해 사이즈 조정
+	GetCapsuleComponent()->SetCapsuleSize(48.f, 105.f);
+
 	// Create Follow Camera 
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera -> SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
@@ -26,6 +31,18 @@ AMain::AMain()
 	//Set our turn rates for input
 	BaseTurnRate = 65.f;
 	BaseLookUpRate = 65.f;
+
+	// 컨트롤러가 rotate할 때, rotate 하지 않기
+	// 카메라에만 영향 미치도록
+	bUseControllerRotationYaw = false;
+	bUseControllerRotationPitch = false;
+	bUseControllerRotationRoll = false;
+
+	// 캐릭터 움직임을 변경
+	GetCharacterMovement() -> bOrientRotationToMovement = true; //캐릭터가 입력방향으로 움직임.
+	GetCharacterMovement() -> RotationRate = FRotator(0.0f , 540.f,0.0f); // 회전 방향
+	GetCharacterMovement() -> JumpZVelocity = 650.f;
+	GetCharacterMovement() -> AirControl = 0.2f;
 }
 
 // Called when the game starts or when spawned
