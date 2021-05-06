@@ -27,7 +27,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = camera)
 	float BaseTurnRate;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = camera)
-	float BaseLookRate;
+	float BaseLookUpRate;
 
 protected:
 	// Called when the game starts or when spawned
@@ -46,6 +46,17 @@ public:
 	/** Called for left/right input */
 	void MoveRight(float value);
 
+	/** Called via input to turn at a given rate
+	 * @param Rate  This is a normalized rate, i.e. 1.0 means 100% of desired turn rate
+	 */
+	void TurnAtRate(float Rate);
 
+	/** Called via input to look up/down at a given rate
+	 * @param Rate  This is a normalized rate, i.e. 1.0 means 100% of desired look up/down rate
+	 */
+	void LookUpAtRate(float Rate);
+
+	FORCEINLINE class USpringArmComponent* GetCameraBoom() const {return CameraBoom ;}
+	FORCEINLINE class UCameraComponent* GetFoloowCamera() const {return FollowCamera;}
 
 };
