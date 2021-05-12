@@ -12,7 +12,14 @@
 UCLASS()
 class SECOND_API UMainAnimInstance : public UAnimInstance
 {
-	GENERATED_BODY()
+	GENERATED_BODY()	
+
+public:
+
+	virtual void NativeInitializeAnimation() override;
+
+	UFUNCTION(BlueprintCallable, Category = AnimationProperty)
+	void UpdateAniamtionProperties();
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Movement)
 	float MovementSpeed;
@@ -20,6 +27,7 @@ class SECOND_API UMainAnimInstance : public UAnimInstance
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Movement)
 	bool bIsInAir;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Movement)
 	class APawn* Pawn;
 
 	
