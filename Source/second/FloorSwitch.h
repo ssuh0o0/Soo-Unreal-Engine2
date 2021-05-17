@@ -6,7 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "FloorSwitch.generated.h"
 
-UCLASS()
+UCLASS() 
 class SECOND_API AFloorSwitch : public AActor
 {
 	GENERATED_BODY()
@@ -15,6 +15,18 @@ public:
 	// Sets default values for this actor's properties
 	AFloorSwitch();
 
+	/** overlap volume for functionality to be triggered */
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Floor Switch")
+	class UBoxComponent* TriggerBox;
+
+	/** Switch for the character to step on */
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Floor Switch")
+	class UStaticMeshComponent* FloorSwitch;
+
+	/** Door to move when the floor switch is stepped on */
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Floor Switch")
+	UStaticMeshComponent* Door;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -22,5 +34,9 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION()
+	void OnOverlapBegin( UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult);
+
 
 };
