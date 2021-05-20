@@ -35,12 +35,6 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "Floor Switch")
 	FVector InitialSwitchLocation;
 
-	UFUNCTION(BlueprintImplementableEvent, Category = "Floor Switch")
-	void RaiseFloorSwitch();
-
-	UFUNCTION(BlueprintImplementableEvent, Category = "Floor Switch")
-	void LowerFloorSwitch();
-
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -61,4 +55,16 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent, Category = " Floor Switch")
 	void LowerDoor();
+
+	UFUNCTION(BlueprintImplementableEvent, Category = " Floor Switch")
+	void RaiseFloorSwitch();
+
+	UFUNCTION(BlueprintImplementableEvent, Category = " Floor Switch")
+	void LowerFloorSwitch();
+
+	UFUNCTION(BlueprintCallable, Category = " Floor Switch")
+	void UpdateDoorLocation(float Z);
+
+	UFUNCTION(BlueprintCallable, Category = " Floor Switch")
+	void UpdateFloorSwitchLocation(float Z);
 };

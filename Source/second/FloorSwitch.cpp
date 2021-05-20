@@ -19,7 +19,7 @@ AFloorSwitch::AFloorSwitch()
 	TriggerBox -> SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
 	TriggerBox -> SetCollisionResponseToChannel(ECollisionChannel::ECC_Pawn, ECollisionResponse::ECR_Overlap);
 
-	TriggerBox -> SetBoxExtent(FVector(62.f,62.f,32.f));
+	TriggerBox -> SetBoxExtent(FVector(40.f,40.f,32.f));
 	
 	FloorSwitch = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("FloorSwitch"));
 	FloorSwitch -> SetupAttachment(GetRootComponent());
@@ -62,4 +62,16 @@ void AFloorSwitch::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor
 	RaiseFloorSwitch();
 }
 
+void AFloorSwitch::UpdateDoorLocation(float Z)
+{
+	FVector NewLocation = InitialDoorLocation;
+	NewLocation.Z += Z;
+	Door -> SetWorldLocation(NewLocation);
+}
 
+void AFloorSwitch::UpdateFloorSwitchLocation(float Z)
+{
+	FVector NewLocation = InitialSwitchLocation;
+	NewLocation.Z += Z;
+	FloorSwitch -> SetWorldLocation(NewLocation);
+}
