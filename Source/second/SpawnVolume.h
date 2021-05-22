@@ -14,6 +14,8 @@ class SECOND_API ASpawnVolume : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ASpawnVolume();
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category= "Spawning" )
+	class UBoxComponent* SpawningBox;
 
 protected:
 	// Called when the game starts or when spawned
@@ -22,5 +24,8 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION(BlueprintPure, Category = "Spawning" )
+	FVector GetSpawnPoint();
 
 };
