@@ -1,5 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
+// Spawn Volume 이란 해당 액터나 폰을 스폰해주는 영역을 의미.
 #pragma once
 
 #include "CoreMinimal.h"
@@ -14,8 +14,12 @@ class SECOND_API ASpawnVolume : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ASpawnVolume();
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category= "Spawning" )
 	class UBoxComponent* SpawningBox;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category= "Spawning" )
+	TSubclassOf<class ACritter> PawnToSpawn;
 
 protected:
 	// Called when the game starts or when spawned
