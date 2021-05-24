@@ -4,6 +4,8 @@
 #include "SpawnVolume.h"
 #include "Components/BoxComponent.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Engine/World.h"
+#include "Critter.h"
 
 // Sets default values
 ASpawnVolume::ASpawnVolume()
@@ -36,4 +38,17 @@ FVector ASpawnVolume::GetSpawnPoint()
 	FVector Point = UKismetMathLibrary::RandomPointInBoundingBox(Origin, Extent);
 
 	return Point;
+}
+
+void ASpawnVolume::SpawnOurPawn_Implementation(UClass* ToSpawn, const FVector& Location)
+{
+	if (ToSpawn)
+	{
+		UWorld* World = GetWorld();
+		FActorSpawnParameters SpawnParams;
+		if(World)
+		{
+			ACritter* CritterSpawned = World -> SpawnActor<ACritter>(ToSpawn, Location, FRotator(0.f), SpawnParams );
+		}
+	}	
 }
