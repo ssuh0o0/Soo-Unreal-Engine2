@@ -15,6 +15,16 @@ public:
 	// Sets default values for this actor's properties
 	AFloatingPlatform();
 
+	// 플랫폼 정적 메시 구현
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category= "Platform" )
+	class UStaticMeshComponent* Mesh;
+
+	UPROPERTY(EditAnywhere)
+	FVector StartPoint;
+
+	UPROPERTY(EditAnywhere, meta=(MakeEditWidget = "true"))
+	FVector EndPoint;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
