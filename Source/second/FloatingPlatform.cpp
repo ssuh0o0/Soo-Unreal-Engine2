@@ -3,6 +3,7 @@
 
 #include "FloatingPlatform.h"
 #include "Components/StaticMeshComponent.h"
+#include "TimerManager.h"
 
 // Sets default values
 AFloatingPlatform::AFloatingPlatform()
@@ -15,6 +16,11 @@ AFloatingPlatform::AFloatingPlatform()
 
 	StartPoint = FVector(0.f);
 	EndPoint = FVector(0.f);
+
+	bInterping = false;
+
+	InterpSpeed = 1.0f ;
+	InterpTime = 1.f ;
 }
 
 // Called when the game starts or when spawned
@@ -23,6 +29,13 @@ void AFloatingPlatform::BeginPlay()
 	Super::BeginPlay();
 	
 	StartPoint = GetActorLocation();
+	EndPoint += StartPoint;
+
+	bInterping = false;
+
+	GetWorldTimerManager().SetTimer(InterpTimer, this, &AFloatingPlatform::ToggleInterping, InterpTime);
+
+	Distance = (EndPoint - StartPoint).Size();
 }
 
 // Called every frame
@@ -30,9 +43,33 @@ void AFloatingPlatform::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	FVector CurrentLocation = GetActorLocation();
+	if (bInterping)
+	{
+		FVector CurrentLocation = GetActorLocation();
+		FVector Interp = FMath::VInterpTo(CurrentLocation, EndPoint, DeltaTime, InterpSpeed);
+		SetActorLocation(Interp);
 
-	FVector interp = FMath::VInterpTo();
+		float DistanceTraveled = (GetActorLocation() - StartPoint).Size();
+		if(Distance - DistanceTraveled <= 1.f )
+		{
+			ToggleInterping();
 
+			GetWorldTimerManager().SetTimer(InterpTimer, this, &AFloatingPlatform::ToggleInterping, InterpTime);
+			SwapVectors(StartPoint, EndPoint);
+		}
+	}
+
+}
+
+void AFloatingPlatform::ToggleInterping()
+{
+	bInterping = !bInterping;
+}
+
+void AFloatingPlatform::SwapVectors(FVector& S, FVector& E)
+{
+	FVector Temp = S ;
+	S = E;
+	E = Temp;
 }
 
