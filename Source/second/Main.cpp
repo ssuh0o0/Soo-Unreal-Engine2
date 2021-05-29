@@ -43,6 +43,15 @@ AMain::AMain()
 	GetCharacterMovement() -> RotationRate = FRotator(0.0f , 540.f,0.0f); // 회전 방향
 	GetCharacterMovement() -> JumpZVelocity = 650.f;
 	GetCharacterMovement() -> AirControl = 0.2f;
+
+
+	MaxHealth = 100.f ;
+	Health = 65.f ;
+
+	MaxStamina = 350.f;
+	Stamina = 120.f;
+
+	Coins = 0; 
 }
 
 // Called when the game starts or when spawned
@@ -110,4 +119,23 @@ void AMain::TurnAtRate(float Rate){
 
 void AMain::LookUpAtRate(float Rate){
 	AddControllerYawInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
+}
+
+void AMain::DecrementHealth(float Amount)
+{
+	Health -= Amount;
+	if (Health - Amount <= 0.f)
+	{	
+		Die();
+	}
+}
+
+void AMain::IncrementCoin(int32 Amount)
+{
+	Coins += Amount;
+}
+
+void AMain::Die()
+{
+
 }
