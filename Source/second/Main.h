@@ -6,6 +6,14 @@
 #include "GameFramework/Character.h"
 #include "Main.generated.h"
 
+UENUM(BlueprintType)
+enum class EMovementStatus : uint8
+{
+	EMS_Normal UMETA(DisplayName = "Normal"),
+	EMS_Sprinting UMETA(DisplayName = "Sprinting"),
+	EMS_MAX UMETA(DisplayName = "DefaultMax")
+};
+
 UCLASS()
 class SECOND_API AMain : public ACharacter
 {
@@ -14,6 +22,25 @@ class SECOND_API AMain : public ACharacter
 public:
 	// Sets default values for this character's properties
 	AMain();
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite ,Category = "Enums")
+	EMovementStatus MovementStatus;
+
+	/** 동작 상태와 달리는 속도를 설정하는 함수  */
+	void SetMovementStatus(EMovementStatus Status);
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Running")
+	float RunningSpeed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Running")
+	float SprintingSpeed;
+
+	bool bShiftKeyDown ;
+
+	/** 스프린팅을 가능하게 down 키를 누름 */
+	void ShiftKeyDown();
+	/** 스프린팅을 멈추도록 함 */
+	void ShiftKeyUP();
 
 	/** Camera Boom positioning the camera behind the player */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = camera, meta=(AllowPrivateAccess="true"))
