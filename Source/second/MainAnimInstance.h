@@ -1,4 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
+// BP_MainAnim 에서 동작을 제어하기 위한 코드
 
 #pragma once
 
@@ -29,6 +30,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Movement)
 	class APawn* Pawn;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Movement)
+	class AMain* Main;
 
 	
 };
