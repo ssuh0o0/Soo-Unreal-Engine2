@@ -7,6 +7,7 @@
 #include "Engine/World.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 // Sets default values
 AMain::AMain()
@@ -268,4 +269,23 @@ void AMain::ShiftKeyDown()
 void AMain::ShiftKeyUP()
 {
 	bShiftKeyDown = false ;
+}
+
+void AMain::ShowPickupLocations()
+{	
+
+	// 둘다 똑같은 행위를 하는 반복문이지만, 쓰임새가 살짝 달라질 수 있음.
+
+	// 1. 인덱스가 필요한 경우
+	// for (int32 i = 0 ; i<PickupLocations.Num(); i++)
+	// {
+	// 	UKismetSystemLibrary::DrawDebugSphere(this, PickupLocations[i], 25.f , 12, FLinearColor::Green, 5.f, .5f );
+	// }
+
+	// 2. 인덱스가 필요하지 않고, 전체를 동시 실행할 경우
+	for (FVector Location : PickupLocations )
+	{
+		UKismetSystemLibrary::DrawDebugSphere(this, Location, 25.f , 12, FLinearColor::Green, 5.f, .5f );
+	}
+		
 }
