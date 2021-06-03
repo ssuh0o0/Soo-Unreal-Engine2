@@ -139,4 +139,9 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const {return CameraBoom ;}
 	FORCEINLINE class UCameraComponent* GetFoloowCamera() const {return FollowCamera;}
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "items")
+	class AWeapon* EquippedWeapon;
+
+	FORCEINLINE void SetEquippedWeapon(AWeapon* WeaponToSet) { EquippedWeapon = WeaponToSet ; }
+
 };
