@@ -136,12 +136,23 @@ public:
 	 */
 	void LookUpAtRate(float Rate);
 
+	// 왼쪽 마우스 버튼이 눌렸는지에 대한 변수들
+	bool bLMBDown;
+	void LMBDown();
+	void LMBUp();
+
+
+
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const {return CameraBoom ;}
 	FORCEINLINE class UCameraComponent* GetFoloowCamera() const {return FollowCamera;}
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "items")
 	class AWeapon* EquippedWeapon;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "items")
+	class AItem* ActiveOverlappingItem;
+
 	FORCEINLINE void SetEquippedWeapon(AWeapon* WeaponToSet) { EquippedWeapon = WeaponToSet ; }
+	FORCEINLINE void SetActiveOverlappingItem(AItem* Item) { ActiveOverlappingItem = Item ; }
 
 };

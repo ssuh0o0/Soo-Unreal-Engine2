@@ -6,11 +6,16 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "Main.h"
 #include "Engine/SkeletalMeshSocket.h"
+#include "Sound/SoundCue.h"
+#include "Kismet/GameplayStatics.h"
+#include "Particles/ParticleSystemComponent.h"
 
 AWeapon::AWeapon()
 {
     SkeletalMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeletalMesh"));
     SkeletalMesh -> SetupAttachment(GetRootComponent());
+
+    bWeaponParticle = false;
 }
 
 void AWeapon::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
@@ -20,8 +25,11 @@ void AWeapon::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* O
     {
         AMain* Main = Cast<AMain>(OtherActor);
         if(Main)
-        {
-            Equip(Main);
+        {   
+            //장비 장착
+            // Equip(Main);
+
+            Main -> SetActiveOverlappingItem(this);
         }
     }
 }
@@ -29,6 +37,15 @@ void AWeapon::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* O
 void AWeapon::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
     Super::OnOverlapEnd(OverlappedComponent, OtherActor, OtherComp, OtherBodyIndex);
+    if (OtherActor)
+    {
+        AMain* Main = Cast<AMain>(OtherActor);
+        if(Main)
+        {   
+            // 장비와 겹치자마자 , 잇다면 nullptr로 바꿔줌
+            Main -> SetActiveOverlappingItem(nullptr);
+        }
+    }
 }
 
 void AWeapon::Equip(AMain* Char)
@@ -45,6 +62,11 @@ void AWeapon::Equip(AMain* Char)
         {
             LeftHandSocket -> AttachActor(this, Char ->GetMesh());
             bRotate = false;
+        }
+        if (OnEquipSound) UGameplayStatics::PlaySound2D(this, OnEquipSound);
+        if (!bWeaponParticle)
+        {
+            IdleParticlesComponent->Deactivate();
         }
     }
 }

@@ -17,6 +17,12 @@ class SECOND_API AWeapon : public AItem
 public:
 
 	AWeapon();
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite ,Category = "Item | Particles")
+	bool bWeaponParticle;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite ,Category = "Item | Sound")	
+	class USoundCue* OnEquipSound;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite ,Category = "SkeletalMesh")
 	class USkeletalMeshComponent* SkeletalMesh;
