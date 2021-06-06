@@ -16,12 +16,14 @@ AWeapon::AWeapon()
     SkeletalMesh -> SetupAttachment(GetRootComponent());
 
     bWeaponParticle = false;
+
+    WeaponState = EWeaponState::EWS_Pickup;
 }
 
 void AWeapon::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
 {
     Super::OnOverlapBegin(OverlappedComponent, OtherActor, OtherComp, OtherBodyIndex, bFromSweep, SweepResult);
-    if (OtherActor)
+    if ((WeaponState == EWeaponState::EWS_Pickup) && OtherActor)
     {
         AMain* Main = Cast<AMain>(OtherActor);
         if(Main)
@@ -62,6 +64,8 @@ void AWeapon::Equip(AMain* Char)
         {
             LeftHandSocket -> AttachActor(this, Char ->GetMesh());
             bRotate = false;
+            Char -> SetEquippedWeapon(this);
+            Char -> SetActiveOverlappingItem(nullptr);
         }
         if (OnEquipSound) UGameplayStatics::PlaySound2D(this, OnEquipSound);
         if (!bWeaponParticle)
