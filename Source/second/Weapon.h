@@ -6,6 +6,13 @@
 #include "Item.h"
 #include "Weapon.generated.h"
 
+UENUM(BluprintType)
+enum class EWeaponState : unit8
+{
+	EWS_Pickup UMETA(DisplayName = "Pickup"),
+	EWS_Equipped UMETA(DisplayName = "Equipped"),
+	EWS_MAX UMETA(DisplayName = "DefaultMax")
+}
 /**
  * 
  */
@@ -17,6 +24,8 @@ class SECOND_API AWeapon : public AItem
 public:
 
 	AWeapon();
+
+	EWeaponState WeaponState ;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite ,Category = "Item | Particles")
 	bool bWeaponParticle;
