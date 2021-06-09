@@ -64,6 +64,7 @@ void AWeapon::Equip(AMain* Char)
         {
             LeftHandSocket -> AttachActor(this, Char ->GetMesh());
             bRotate = false;
+
             Char -> SetEquippedWeapon(this);
             Char -> SetActiveOverlappingItem(nullptr);
         }

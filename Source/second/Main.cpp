@@ -316,3 +316,12 @@ void AMain::ShowPickupLocations()
 		
 }
 
+void AMain::SetEquippedWeapon(AWeapon* WeaponToSet)
+{	
+	if (EquippedWeapon)
+	{
+		EquippedWeapon->Destroy();
+	}
+	EquippedWeapon = WeaponToSet;
+}
+
