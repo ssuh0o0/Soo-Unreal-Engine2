@@ -6,6 +6,15 @@
 #include "GameFramework/Character.h"
 #include "Enemy.generated.h"
 
+UENUM(BlueprintType)
+enum class EEnemyMovementStatus : uint8
+{
+	EMS_Idle			UMETA(DisplayName = "Idle"),
+	EMS_MoveToTarget	UMETA(DisplayName = "MoveToTarget"),
+	EMS_Attaking		UMETA(DisplayName = "Attaking"),
+	EMS_MAX				UMETA(DisplayName = "DefaultMAX"),
+};
+
 UCLASS()
 class SECOND_API AEnemy : public ACharacter
 {
@@ -14,6 +23,11 @@ class SECOND_API AEnemy : public ACharacter
 public:
 	// Sets default values for this character's properties
 	AEnemy();
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement")
+	EEnemyMovementStatus EnemyMovementStatus;
+
+	FORCEINLINE void SetEnemyMovementStatus (EEnemyMovementStatus Status) { EnemyMovementStatus = Status ;}
 
 protected:
 	// Called when the game starts or when spawned
