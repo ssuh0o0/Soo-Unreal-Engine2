@@ -3,6 +3,8 @@
 
 #include "Enemy.h"
 #include "Components/SphereComponent.h"
+#include "AIController.h"
+#include "Main.h"
 
 // Sets default values
 AEnemy::AEnemy()
@@ -24,6 +26,13 @@ void AEnemy::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	AIController = Cast<AAIController>(GetController());
+
+	AgroSphere -> OnComponentBeginOverlap.AddDynamic(this, &AEnemy::AgroSphereOnOverlapBegin);
+	AgroSphere -> OnComponentEndOverlap.AddDynamic(this, &AEnemy::AgroSphereOnOverlapEnd);
+	
+	CombatSphere -> OnComponentBeginOverlap.AddDynamic(this, &AEnemy::CombatSphereOnOverlapBegin);
+	CombatSphere -> OnComponentEndOverlap.AddDynamic(this, &AEnemy::CombatSphereOnOverlapEnd);
 }
 
 // Called every frame
@@ -40,3 +49,45 @@ void AEnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 }
 
+void AEnemy::AgroSphereOnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
+{
+	if (OtherActor)
+	{
+		AMain* Main = Cast<AMain>(OtherActor);
+		if(Main)
+		{
+			MoveToTarget(Main);
+		}
+	}
+}
+
+void AEnemy::AgroSphereOnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+
+}
+
+void AEnemy::CombatSphereOnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
+{
+
+}	
+
+void AEnemy::CombatSphereOnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+
+}
+
+void AEnemy::MoveToTarget(class AMain* Target)
+{
+	SetEnemyMovementStatus(EEnemyMovementStatus::EMS_MoveToTarget);
+
+	if(AIController)
+	{
+		FAIMoveRequest MoveRequest;
+		MoveRequest.SetGoalActor(Target);
+		MoveRequest.SetAcceptanceRadius(5.0f);
+
+		FNavPathSharedPtr NavPath;
+
+		AIController-> MoveTo(MoveRequest, &NavPath);
+	}
+}
