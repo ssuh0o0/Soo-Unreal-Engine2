@@ -29,6 +29,12 @@ public:
 
 	FORCEINLINE void SetEnemyMovementStatus (EEnemyMovementStatus Status) { EnemyMovementStatus = Status ;}
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AI")
+	class USphereComponent* AgroSphere;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AI")
+	USphereComponent* CombatSphere;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -39,5 +45,7 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	
 
 };
