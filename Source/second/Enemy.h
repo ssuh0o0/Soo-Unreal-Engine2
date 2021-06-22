@@ -11,7 +11,7 @@ enum class EEnemyMovementStatus : uint8
 {
 	EMS_Idle			UMETA(DisplayName = "Idle"),
 	EMS_MoveToTarget	UMETA(DisplayName = "MoveToTarget"),
-	EMS_Attaking		UMETA(DisplayName = "Attaking"),
+	EMS_Attacking		UMETA(DisplayName = "Attacking"),
 	EMS_MAX				UMETA(DisplayName = "DefaultMAX"),
 };
 
