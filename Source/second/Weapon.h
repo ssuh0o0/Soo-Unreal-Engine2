@@ -34,6 +34,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite ,Category = "Item | Sound")	
 	class USoundCue* OnEquipSound;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite ,Category = "Item | Sound")	
+	class USoundCue* SwingSound;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite ,Category = "SkeletalMesh")
 	class USkeletalMeshComponent* SkeletalMesh;
 
@@ -56,6 +59,10 @@ public:
 	UFUNCTION()
 	void CombatOnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex) ;
 
+	UFUNCTION(BlueprintCallable)
+	void ActivateCollision();
+	UFUNCTION(BlueprintCallable)
+	void DeActivateCollision();
 protected:
 	virtual void BeginPlay() override;
 };

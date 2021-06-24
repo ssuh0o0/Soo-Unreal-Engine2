@@ -11,6 +11,8 @@
 #include "Weapon.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Animation/AnimInstance.h"
+#include "Sound/SoundCue.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AMain::AMain()
@@ -354,7 +356,10 @@ void AMain::Attack()
 				default:
 				    ;
 			}
-		
+		}
+		if (EquippedWeapon->SwingSound)
+		{
+			UGameplayStatics::PlaySound2D(this, EquippedWeapon->SwingSound);
 		}
 	}
 }
