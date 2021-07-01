@@ -71,6 +71,9 @@ AMain::AMain()
 
 	StaminaDrainRate = 25.f ;
 	MinSprintStamina = 50.f ;
+
+ 	InterpSpeed = 15.f;
+	bInterpToEnemy = false;
 }
 
 // Called when the game starts or when spawned
@@ -178,6 +181,16 @@ void AMain::Tick(float DeltaTime)
 		default:
 			;
 	}
+
+	if (bInterpToEnemy && CombatTarget)
+	{
+
+	}
+}
+
+FRotator GetLookAtRotationYaw(FVector Target)
+{
+	FRotator LookAtRotation
 }
 
 // Called to bind functionality to input
@@ -338,6 +351,7 @@ void AMain::Attack()
 	if(!bAttacking)
 	{
 		bAttacking = true;
+		SetInterpToEnemy(true);
 
 		UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 		if (AnimInstance && CombatMontage)
@@ -376,4 +390,9 @@ void AMain::PlaySwingSound()
 		UGameplayStatics::PlaySound2D(this, EquippedWeapon->SwingSound);
 	}
 
+}
+
+void AMain::SetInterpToEnemy(bool Interp)
+{
+	bInterpToEnemy = Interp;
 }

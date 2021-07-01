@@ -110,6 +110,19 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite,Category = "Player Stats")
 	int32 Coins; 
 
+	float InterpSpeed;
+
+	bool bInterpToEnemy;
+
+	void SetInterpToEnemy(bool Interp);
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Combat")
+	class AEnemy* CombatTarget;
+
+	FORCEINLINE void SetCombatTarget(AEnemy* Target) { CombatTarget = Target; }
+
+	FRotator GetLookAtRotationYaw(FVector Target);
+
 	void DecrementHealth(float Amount);
 
 	void IncrementCoin(int32 Amount);
