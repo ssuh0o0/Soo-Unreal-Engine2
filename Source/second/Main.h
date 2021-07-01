@@ -33,6 +33,13 @@ public:
 	// Sets default values for this character's properties
 	AMain();
 
+	/** 적이 Main을 공격할 때 사용될 변수 HitParticles, HitSound */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite ,Category = "Combat")
+	class UParticleSystem* HitParticles;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite ,Category = "Combat|Sound")	
+	class USoundCue* HitSound;
+
 	TArray<FVector> PickupLocations;
 
 	UFUNCTION(BlueprintCallable)

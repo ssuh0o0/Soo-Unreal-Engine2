@@ -28,22 +28,22 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite ,Category = "Item")
 	EWeaponState WeaponState ;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite ,Category = "Item | Particles")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite ,Category = "Item|Particles")
 	bool bWeaponParticle;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite ,Category = "Item | Sound")	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite ,Category = "Item|Sound")	
 	class USoundCue* OnEquipSound;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite ,Category = "Item | Sound")	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite ,Category = "Item|Sound")	
 	class USoundCue* SwingSound;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite ,Category = "SkeletalMesh")
 	class USkeletalMeshComponent* SkeletalMesh;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly ,Category = "Item | Combat")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly ,Category = "Item|Combat")
 	class UBoxComponent* CombatCollision;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite ,Category = "Item | Combat")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite ,Category = "Item|Combat")
 	float Damage;
 
 	virtual void OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult) override;
