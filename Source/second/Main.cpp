@@ -8,6 +8,7 @@
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "Weapon.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Animation/AnimInstance.h"
@@ -190,7 +191,8 @@ void AMain::Tick(float DeltaTime)
 
 FRotator GetLookAtRotationYaw(FVector Target)
 {
-	FRotator LookAtRotation
+	FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), Target);
+	FRotator LookAtRotationYaw(0.f , )
 }
 
 // Called to bind functionality to input
