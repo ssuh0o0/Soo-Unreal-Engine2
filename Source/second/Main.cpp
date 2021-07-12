@@ -14,6 +14,7 @@
 #include "Animation/AnimInstance.h"
 #include "Sound/SoundCue.h"
 #include "Kismet/GameplayStatics.h"
+#include "Enemy.h"
 
 // Sets default values
 AMain::AMain()
@@ -185,14 +186,19 @@ void AMain::Tick(float DeltaTime)
 
 	if (bInterpToEnemy && CombatTarget)
 	{
+		FRotator LookAtYaw = GetLookAtRotationYaw(CombatTarget -> GetActorLocation());
+		FRotator InterpRotation = FMath::RInterpTo(GetActorRotation(), LookAtYaw, DeltaTime, InterpSpeed);
 
+		SetActorRotation(InterpRotation);
 	}
 }
 
-FRotator GetLookAtRotationYaw(FVector Target)
+FRotator AMain::GetLookAtRotationYaw(FVector Target)
 {
 	FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), Target);
-	FRotator LookAtRotationYaw(0.f , )
+	FRotator LookAtRotationYaw(0.f , LookAtRotation.Yaw, 0.f);
+
+	return LookAtRotationYaw;
 }
 
 // Called to bind functionality to input
@@ -379,6 +385,7 @@ void AMain::Attack()
 void AMain::AttackEnd()
 {
 	bAttacking = false;
+	SetInterpToEnemy(false);
 	if(bLMBDown)
 	{
 		Attack();
